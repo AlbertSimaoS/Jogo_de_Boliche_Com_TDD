@@ -23,4 +23,16 @@ public class JogoTest {
         }
         assertTrue(jogo.pontuacao() == 20);
     }
+
+    @Test
+    void umSpare(){
+        Jogo jogo = new Jogo();
+        jogo.jogar(5);
+        jogo.jogar(5);
+        jogo.jogar(3);
+        for (int i = 0; i < 17; i++){
+            jogo.jogar(0);
+        }
+        assertTrue(jogo.pontuacao() == 16);
+    }
 }
