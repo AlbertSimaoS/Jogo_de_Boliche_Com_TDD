@@ -12,10 +12,10 @@
 
 ## Validações
 
-- [] V1: jogada < 0 lança `IllegalArgumentException`
-- [] V1: jogada > 10 lança `IllegalArgumentException`
-- [] V2: frames 1–9, segunda jogada que passa de 10 pinos (7 e 4) lança `IllegalArgumentException`
-- [] V2: a regra vale além do primeiro frame; soma exatamente 10 é válida; strike seguido de strike é válido
-- [] V2: jogada inválida não é registrada
-- [] V3: jogada depois de 20 jogadas sem bônus lança `IllegalStateException`
-- [] V3: jogada depois das jogadas extras (jogo perfeito, spare e strike no 10º frame) lança `IllegalStateException`
+- [ ] V1: jogada < 0 lança `IllegalArgumentException`
+- [ ] V1: jogada > 10 lança `IllegalArgumentException`
+- [ ] V2: frames 1–9, segunda jogada que passa de 10 pinos (7 e 4) lança `IllegalArgumentException`
+- [ ] V2: a regra vale além do primeiro frame; soma exatamente 10 é válida; strike seguido de strike é válido
+- [ ] V2: jogada inválida não é registrada
+- [ ] V3: jogada depois de 20 jogadas sem bônus lança `IllegalStateException`
+- [ ] V3: jogada depois das jogadas extras (jogo perfeito, spare e strike no 10º frame) lança `IllegalStateException`
