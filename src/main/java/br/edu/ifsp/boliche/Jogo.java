@@ -2,19 +2,29 @@ package br.edu.ifsp.boliche;
 
 public class Jogo {
 
-    private int total = 0;
+    private final int[] jogadas = new int[21];
+    private int quantidade = 0;
 
     /** Registra uma jogada com a quantidade de pinos derrubados. */
     public void jogar(int pinos) {
-        total += pinos;
+        jogadas[quantidade++] = pinos;
     }
 
     /** Pontuação acumulada; avaliada ao final da partida. */
     public int pontuacao() {
-        return total;
+        int pontos = 0;
+        int i = 0;
+        for (int frame = 0; frame < 10; frame++) {
+            if (jogadas[i] + jogadas[i + 1] == 10) {
+                pontos += 10 + jogadas[i + 2];
+            } else {
+                pontos += jogadas[i] + jogadas[i + 1];
+            }
+            i += 2;
+        }
+        return pontos;
     }
 
     /** Indica se a partida já terminou. */
     public boolean encerrado() { return false; }
-
 }
