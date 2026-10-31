@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Test;
 
 public class JogoTest {
 
+    private final Jogo jogo = new Jogo();
+
     @Test
     void nenhumPino() {
-        Jogo jogo = new Jogo();
         for (int i = 0; i < 20; i++) {
             jogo.jogar(0);
         }
@@ -17,7 +18,6 @@ public class JogoTest {
 
     @Test
     void umPinoPorJogada() {
-        Jogo jogo = new Jogo();
         for (int i = 0; i < 20; i++) {
             jogo.jogar(1);
         }
@@ -26,7 +26,6 @@ public class JogoTest {
 
     @Test
     void umSpare(){
-        Jogo jogo = new Jogo();
         jogo.jogar(5);
         jogo.jogar(5);
         jogo.jogar(3);
@@ -34,5 +33,15 @@ public class JogoTest {
             jogo.jogar(0);
         }
         assertTrue(jogo.pontuacao() == 16);
+    }
+
+    @Test
+    void umStrike(){
+        jogo.jogar(10);
+        jogo.jogar(3);
+        jogo.jogar(4);
+        for(int i = 0; i < 17; i++)
+            jogo.jogar(0);
+        assertTrue(jogo.pontuacao() == 24);
     }
 }
