@@ -54,7 +54,7 @@ public class JogoTest {
 
     @Test
     void jogoPerfeito(){
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 12; i++)
             jogo.jogar(10);
         assertTrue(jogo.pontuacao() == 300);
     }
