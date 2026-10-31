@@ -51,4 +51,11 @@ public class JogoTest {
             jogo.jogar(5);
         assertTrue(jogo.pontuacao() == 150);
     }
+
+    @Test
+    void jogoPerfeito(){
+        for(int i = 0; i < 10; i++)
+            jogo.jogar(10);
+        assertTrue(jogo.pontuacao() == 300);
+    }
 }
