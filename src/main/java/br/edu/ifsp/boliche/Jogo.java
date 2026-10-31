@@ -16,11 +16,15 @@ public class Jogo {
         int i = 0;
         for (int frame = 0; frame < 10; frame++) {
             if (jogadas[i] + jogadas[i + 1] == 10) {
-                pontos += 10 + jogadas[i + 2];
+                pontos = pontos + 10 + jogadas[i + 2];
+                i = i + 2;
+            } else if (jogadas[i] == 10) {
+                pontos = pontos + 10 + jogadas[i + 1] + jogadas[i + 2];
+                i = i + 1;
             } else {
-                pontos += jogadas[i] + jogadas[i + 1];
+                pontos = pontos + jogadas[i] + jogadas[i + 1];
+                i = i + 2;
             }
-            i += 2;
         }
         return pontos;
     }
