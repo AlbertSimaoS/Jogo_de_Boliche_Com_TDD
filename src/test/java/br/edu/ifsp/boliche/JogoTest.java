@@ -44,4 +44,11 @@ public class JogoTest {
             jogo.jogar(0);
         assertTrue(jogo.pontuacao() == 24);
     }
+
+    @Test
+    void spareEmTodosOsFrames(){
+        for (int i = 0; i < 20; i++)
+            jogo.jogar(5);
+        assertTrue(jogo.pontuacao() == 150);
+    }
 }
