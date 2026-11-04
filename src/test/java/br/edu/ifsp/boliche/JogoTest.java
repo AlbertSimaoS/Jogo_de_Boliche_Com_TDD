@@ -58,4 +58,26 @@ public class JogoTest {
             jogo.jogar(10);
         assertTrue(jogo.pontuacao() == 300);
     }
+
+    @Test
+    void jogoMisto(){
+        jogo.jogar(10);
+        jogo.jogar(7);
+        jogo.jogar(3);
+        jogo.jogar(9);
+        jogo.jogar(0);
+        jogo.jogar(10);
+        jogo.jogar(0);
+        jogo.jogar(8);
+        jogo.jogar(8);
+        jogo.jogar(2);
+        jogo.jogar(0);
+        jogo.jogar(6);
+        jogo.jogar(10);
+        jogo.jogar(10);
+        jogo.jogar(10);
+        jogo.jogar(8);
+        jogo.jogar(1);
+        assertTrue(jogo.pontuacao() == 167);
+    }
 }
