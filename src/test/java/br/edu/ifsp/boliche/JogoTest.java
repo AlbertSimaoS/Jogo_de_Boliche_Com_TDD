@@ -40,14 +40,14 @@ public class JogoTest {
         jogo.jogar(10);
         jogo.jogar(3);
         jogo.jogar(4);
-        for(int i = 0; i < 17; i++)
+        for(int i = 0; i < 16; i++)
             jogo.jogar(0);
         assertTrue(jogo.pontuacao() == 24);
     }
 
     @Test
     void spareEmTodosOsFrames(){
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 21; i++)
             jogo.jogar(5);
         assertTrue(jogo.pontuacao() == 150);
     }
@@ -61,23 +61,16 @@ public class JogoTest {
 
     @Test
     void jogoMisto(){
-        jogo.jogar(10);
-        jogo.jogar(7);
-        jogo.jogar(3);
-        jogo.jogar(9);
-        jogo.jogar(0);
-        jogo.jogar(10);
-        jogo.jogar(0);
-        jogo.jogar(8);
-        jogo.jogar(8);
-        jogo.jogar(2);
-        jogo.jogar(0);
-        jogo.jogar(6);
-        jogo.jogar(10);
-        jogo.jogar(10);
-        jogo.jogar(10);
-        jogo.jogar(8);
-        jogo.jogar(1);
+        jogo.frame(10);
+        jogo.frame(7,3);
+        jogo.frame(9,0);
+        jogo.frame(10);
+        jogo.frame(0,8);
+        jogo.frame(8,2);
+        jogo.frame(0,6);
+        jogo.frame(10);
+        jogo.frame(10);
+        jogo.frame(10,8,1);
         assertTrue(jogo.pontuacao() == 167);
     }
 }

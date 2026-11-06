@@ -4,9 +4,14 @@ public class Jogo {
 
     private final int[] jogadas = new int[21];
     private int quantidade = 0;
+    private int numeroFrame = 0;
 
     /** Registra uma jogada com a quantidade de pinos derrubados. */
     public void jogar(int pinos) {
+        if (encerrado()) {
+            throw new IllegalStateException("O jogo já foi encerrado!");
+        }
+
         jogadas[quantidade++] = pinos;
     }
 
@@ -15,15 +20,12 @@ public class Jogo {
         int pontos = 0;
         int i = 0;
         for (int frame = 0; frame < 10; frame++) {
-            if (jogadas[i] + jogadas[i + 1] == 10) {
-                if(i == 18)
-                    pontos = pontos + 10 + jogadas[i + 1];
-                else
-                    pontos = pontos + 10 + jogadas[i + 2];
-                i = i + 2;
-            } else if (jogadas[i] == 10) {
+            if (jogadas[i] == 10) {
                 pontos = pontos + 10 + jogadas[i + 1] + jogadas[i + 2];
                 i = i + 1;
+            } else if (jogadas[i] + jogadas[i + 1] == 10) {
+                pontos = pontos + 10 + jogadas[i + 2];
+                i = i + 2;
             } else {
                 pontos = pontos + jogadas[i] + jogadas[i + 1];
                 i = i + 2;
@@ -32,6 +34,64 @@ public class Jogo {
         return pontos;
     }
 
+    public int frame(int primeira) {
+        numeroFrame++;
+        jogar(primeira);
+        return pontuacao();
+    }
+
+    public int frame(int primeira, int segunda) {
+        numeroFrame++;
+
+        jogar(primeira);
+        jogar(segunda);
+
+        return pontuacao();
+    }
+
+    public int frame(int primeira, int segunda, int terceira) {
+        numeroFrame++;
+
+        if (numeroFrame != 10) {
+            throw new IllegalStateException("Três jogadas são permitidas apenas no 10º frame.");
+        }
+
+        jogar(primeira);
+        jogar(segunda);
+        jogar(terceira);
+
+        return pontuacao();
+    }
+
     /** Indica se a partida já terminou. */
-    public boolean encerrado() { return false; }
+    public boolean encerrado() {
+        int indice = 0;
+
+        for (int frame = 0; frame < 10; frame++) {
+            if (indice >= quantidade) {
+                return false;
+            }
+            int primeira = jogadas[indice++];
+            if (frame == 9) {
+                if (primeira == 10) {
+                    return quantidade >= indice + 2;
+                }
+                if (indice >= quantidade) {
+                    return false;
+                }
+                int segunda = jogadas[indice++];
+                if (primeira + segunda == 10) {
+                    return quantidade >= indice + 1;
+                }
+                return true;
+            }
+            if (primeira != 10) {
+                if (indice >= quantidade) {
+                    return false;
+                }
+                indice++;
+            }
+        }
+        return true;
+    }
 }
