@@ -2,6 +2,9 @@ package br.edu.ifsp.boliche;
 
 public class Jogo {
 
+    private static final int FRAMES = 10;
+    private static final int TOTAL_DE_PINOS = 10;
+
     private final int[] jogadas = new int[21];
     private int quantidade = 0;
     private int numeroFrame = 0;
@@ -29,19 +32,39 @@ public class Jogo {
     public int pontuacao() {
         int pontos = 0;
         int i = 0;
-        for (int frame = 0; frame < 10; frame++) {
-            if (jogadas[i] == 10) {
-                pontos = pontos + 10 + jogadas[i + 1] + jogadas[i + 2];
-                i = i + 1;
-            } else if (jogadas[i] + jogadas[i + 1] == 10) {
-                pontos = pontos + 10 + jogadas[i + 2];
-                i = i + 2;
+        for (int frame = 0; frame < FRAMES; frame++) {
+            if (ehStrike(i)) {          // strike tem que vir antes do spare
+                pontos += pontosDeStrike(i);
+                i += 1;
+            } else if (ehSpare(i)) {
+                pontos += pontosDeSpare(i);
+                i += 2;
             } else {
-                pontos = pontos + jogadas[i] + jogadas[i + 1];
-                i = i + 2;
+                pontos += pontosDeFrameAberto(i);
+                i += 2;
             }
         }
         return pontos;
+    }
+
+    private boolean ehStrike(int i) {
+        return jogadas[i] == TOTAL_DE_PINOS;
+    }
+
+    private boolean ehSpare(int i) {
+        return jogadas[i] + jogadas[i + 1] == TOTAL_DE_PINOS;
+    }
+
+    private int pontosDeStrike(int i) {
+        return TOTAL_DE_PINOS + jogadas[i + 1] + jogadas[i + 2];
+    }
+
+    private int pontosDeSpare(int i) {
+        return TOTAL_DE_PINOS + jogadas[i + 2];
+    }
+
+    private int pontosDeFrameAberto(int i) {
+        return jogadas[i] + jogadas[i + 1];
     }
 
     public int frame(int primeira) {
