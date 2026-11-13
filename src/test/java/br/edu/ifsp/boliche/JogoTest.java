@@ -90,4 +90,46 @@ public class JogoTest {
         jogo.jogar(7);
         assertThrows(IllegalArgumentException.class, () -> jogo.jogar(4));
     }
+
+    @Test
+    void jogadaDepoisDeVinteJogadasSemBonusLancaIllegalStateException() {
+        for (int i = 0; i < 20; i++)
+            jogo.jogar(0);
+        assertThrows(IllegalStateException.class, () -> jogo.jogar(0));
+    }
+
+    @Test
+    void jogadaDepoisDoJogoPerfeitoLancaIllegalStateException() {
+        for (int i = 0; i < 12; i++)
+            jogo.jogar(10);
+        assertThrows(IllegalStateException.class, () -> jogo.jogar(1));
+    }
+
+    @Test
+    void jogadaDepoisDaJogadaExtraDoSpareLancaIllegalStateException() {
+        for (int i = 0; i < 21; i++)
+            jogo.jogar(5);
+        assertThrows(IllegalStateException.class, () -> jogo.jogar(0));
+    }
+
+    @Test
+    void jogadaDepoisDasDuasJogadasExtrasDoStrikeLancaIllegalStateException() {
+        for (int i = 0; i < 18; i++)
+            jogo.jogar(0);
+        jogo.jogar(10);
+        jogo.jogar(5);
+        jogo.jogar(3);
+        assertThrows(IllegalStateException.class, () -> jogo.jogar(0));
+    }
+
+    @Test
+    void strikeNoDecimoFrameAindaAceitaAsJogadasExtras() {
+        for (int i = 0; i < 18; i++)
+            jogo.jogar(0);
+        jogo.jogar(10);
+        jogo.jogar(5);
+        assertTrue(!jogo.encerrado());
+        jogo.jogar(3);
+        assertTrue(jogo.encerrado());
+    }
 }
