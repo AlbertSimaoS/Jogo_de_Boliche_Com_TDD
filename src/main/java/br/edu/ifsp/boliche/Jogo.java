@@ -11,6 +11,9 @@ public class Jogo {
         if (pinos < 0) {
             throw new IllegalArgumentException("Pinos derrubados não pode ser negativo: " + pinos);
         }
+        if (pinos > 10) {
+            throw new IllegalArgumentException("Pinos derrubados não pode ser maior que 10: " + pinos);
+        }
         if (encerrado()) {
             throw new IllegalStateException("O jogo já foi encerrado!");
         }
