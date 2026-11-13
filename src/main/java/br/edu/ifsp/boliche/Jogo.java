@@ -18,6 +18,10 @@ public class Jogo {
             throw new IllegalStateException("O jogo já foi encerrado!");
         }
 
+        if (ehSegundaJogadaDeFrameNormal() && jogadas[quantidade - 1] + pinos > 10) {
+            throw new IllegalArgumentException("O frame não pode passar de 10 pinos");
+        }
+
         jogadas[quantidade++] = pinos;
     }
 
@@ -99,5 +103,22 @@ public class Jogo {
             }
         }
         return true;
+    }
+
+    private boolean ehSegundaJogadaDeFrameNormal() {
+        int indice = 0;
+        for (int frame = 0; frame < 9; frame++) {
+            if (indice >= quantidade) {
+                return false;
+            }
+            if (jogadas[indice] == 10) {
+                indice++;
+            } else if (indice + 1 == quantidade) {
+                return true;
+            } else {
+                indice += 2;
+            }
+        }
+        return false;
     }
 }
