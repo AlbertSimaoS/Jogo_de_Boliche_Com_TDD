@@ -33,7 +33,7 @@ public class Jogo {
         int pontos = 0;
         int i = 0;
         for (int frame = 0; frame < FRAMES; frame++) {
-            if (ehStrike(i)) {          // strike tem que vir antes do spare
+            if (ehStrike(i)) {
                 pontos += pontosDeStrike(i);
                 i += 1;
             } else if (ehSpare(i)) {
@@ -98,34 +98,35 @@ public class Jogo {
 
     /** Indica se a partida já terminou. */
     public boolean encerrado() {
-        int indice = 0;
+        int inicio = inicioDoDecimoFrame();
+        return inicio >= 0 && decimoFrameCompleto(inicio);
+    }
 
-        for (int frame = 0; frame < 10; frame++) {
-            if (indice >= quantidade) {
-                return false;
+    /** Índice da 1ª jogada do 10º frame, ou -1 se os frames 1 a 9 ainda não terminaram. */
+    private int inicioDoDecimoFrame() {
+        int indice = 0;
+        for (int frame = 1; frame < FRAMES; frame++) {
+            if (!frameCompleto(indice)) {
+                return -1;
             }
-            int primeira = jogadas[indice++];
-            if (frame == 9) {
-                if (primeira == 10) {
-                    return quantidade >= indice + 2;
-                }
-                if (indice >= quantidade) {
-                    return false;
-                }
-                int segunda = jogadas[indice++];
-                if (primeira + segunda == 10) {
-                    return quantidade >= indice + 1;
-                }
-                return true;
-            }
-            if (primeira != 10) {
-                if (indice >= quantidade) {
-                    return false;
-                }
-                indice++;
-            }
+            indice += ehStrike(indice) ? 1 : 2;
         }
-        return true;
+        return indice;
+    }
+
+    /** Um frame normal está completo com um strike, ou com duas jogadas. */
+    private boolean frameCompleto(int inicio) {
+        if (inicio >= quantidade) {
+            return false;
+        }
+        return ehStrike(inicio) || inicio + 2 <= quantidade;
+    }
+
+    /** O 10º frame tem 3 jogadas se houver strike ou spare, senão 2. */
+    private boolean decimoFrameCompleto(int inicio) {
+        int feitas = quantidade - inicio;
+        int necessarias = (ehStrike(inicio) || ehSpare(inicio)) ? 3 : 2;
+        return feitas >= necessarias;
     }
 
     private boolean ehSegundaJogadaDeFrameNormal() {
