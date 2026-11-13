@@ -84,4 +84,10 @@ public class JogoTest {
     void jogadaComMaisDeDezPinosLancaIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> jogo.jogar(11));
     }
+
+    @Test
+    void segundaJogadaQuePassaDeDezPinosNoFrameLancaIllegalArgumentException() {
+        jogo.jogar(7);
+        assertThrows(IllegalArgumentException.class, () -> jogo.jogar(4));
+    }
 }
